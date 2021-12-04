@@ -41,46 +41,4 @@ class BaseController
 
         return $query;
     }
-//    /**
-//     * Get URI elements.
-//     *
-//     * @return array
-//     */
-//    protected function getUriSegments()
-//    {
-//        $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-//        $uri = explode('/', $uri);
-//
-//        return $uri;
-//    }
-//
-//    /**
-//     * Get querystring params.
-//     *
-//     * @return void
-//     */
-//    protected function getQueryStringParams()
-//    {
-//        return parse_str($_SERVER['QUERY_STRING'], $query);
-//    }
-
-    //    /**
-    //     * Send API output.
-    //     *
-    //     * @param mixed $data
-    //     * @param array $httpHeaders
-    //     */
-    //    protected function sendOutput($data, array $httpHeaders = [])
-    //    {
-    //        header_remove('Set-Cookie');
-    //
-    //        if (is_array($httpHeaders) && count($httpHeaders)) {
-    //            foreach ($httpHeaders as $httpHeader) {
-    //                header($httpHeader);
-    //            }
-    //        }
-    //
-    //        echo $data;
-    //        exit;
-    //    }
 }
