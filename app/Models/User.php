@@ -18,4 +18,16 @@ class User extends BaseModel
         'email',
         'password'
     ];
+
+    protected $hidden = [
+        'password',
+    ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tokens()
+    {
+        return $this->hasMany(Token::class, 'user_id');
+    }
 }

@@ -3,6 +3,8 @@
 namespace App\Components;
 
 use App\Consts\Messages\ErrorMessage;
+use App\Models\Token;
+use App\Models\User;
 use App\Traits\OutputTrait;
 use Illuminate\Database\Capsule\Manager;
 
@@ -77,6 +79,9 @@ class App
         foreach ($this->routes as $route) {
             if ($this->compareUrl($route['url'], $url)) {
                 try {
+                    if ($route['auth']) {
+                        $this->authentication();
+                    }
                     $controllerObject = new $route['controller']();
                     $controllerObject->{$route['method']}($this->attributes);
                 } catch (\Exception $exception) {
@@ -90,6 +95,50 @@ class App
         $this->sendOutput([
             'message' => ErrorMessage::NOT_FOUND
         ], 404);
+    }
+
+    /**
+     * @return void
+     */
+    private function authentication()
+    {
+        if (!array_key_exists('HTTP_AUTHORIZATION', $_SERVER)) {
+            $this->sendOutput([
+                'message' => ErrorMessage::UNAUTHORIZED
+            ], 401);
+        }
+
+        $bearerToken = $_SERVER['HTTP_AUTHORIZATION'];
+        $token = explode('Bearer ', $bearerToken)[1];
+
+        $user = User::query()->get()->first(function (User $user) use ($token) {
+            return $this->isValidToken($user, $token);
+        });
+
+        if (is_null($user)) {
+            $this->sendOutput([
+                'message' => ErrorMessage::INVALID_TOKEN
+            ], 403);
+        }
+
+        setAuth($user);
+    }
+
+    /**
+     * @param User   $user
+     * @param string $secondPartToken
+     *
+     * @return bool
+     */
+    private function isValidToken(User $user, string $secondPartToken)
+    {
+        $res = false;
+        $user->tokens()->each(function (Token $token) use (&$res, $user, $secondPartToken) {
+            $fullToken = $token->first_part_token . $secondPartToken;
+            $res = $res || password_verify($user->password . TOKEN_SECRECT_WORD, $fullToken);
+        });
+
+        return $res;
     }
 
     /**

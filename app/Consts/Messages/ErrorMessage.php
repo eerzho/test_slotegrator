@@ -18,4 +18,8 @@ class ErrorMessage
     const VALIDATOR_INT      = 'Поле :field должно быть int';
     const SEARCH_CONDITIONS  = 'Поле conditions не найден';
     const SEARCH_PARAMETERS  = 'Поле parameter не найден';
+    const PASSWORD           = 'Не правильный пароль';
+    const EMAIL              = 'Не правильный email';
+    const UNAUTHORIZED       = 'Нужно авторизоваться';
+    const INVALID_TOKEN      = 'Не действительный токен';
 }
