@@ -11,7 +11,7 @@ trait OutputTrait
      *
      * @return void
      */
-    protected function sendOutput($data, int $statusCode = 200, array $httpHeaders = [])
+    protected static function sendOutput($data, int $statusCode = 200, array $httpHeaders = [])
     {
         $result = ['data' => $data];
         header_remove('Set-Cookie');

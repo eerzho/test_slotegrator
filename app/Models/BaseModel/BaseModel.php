@@ -2,6 +2,9 @@
 
 namespace App\Models\BaseModel;
 
+use App\Components\DateFormatHelper;
+use App\Consts\Messages\ErrorMessage;
+use App\Traits\OutputTrait;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -11,8 +14,28 @@ use Illuminate\Database\Eloquent\Model;
  */
 class BaseModel extends Model
 {
+    use OutputTrait;
+
     protected $casts = [
-        'created_at' => 'datetime:Y-m-d H:i',
-        'updated_at' => 'datetime:Y-m-d H:i',
+        'created_at' => DateFormatHelper::CAST_DATETIME_FORMAT,
+        'updated_at' => DateFormatHelper::CAST_DATETIME_FORMAT,
     ];
+
+    /**
+     * @param int $id
+     *
+     * @return static
+     */
+    public static function findOne(int $id)
+    {
+        $user = static::query()->where('id', $id)->first();
+
+        if (is_null($user)) {
+            self::sendOutput([
+                'message' => ErrorMessage::NOT_FOUND
+            ], 404);
+        }
+
+        return $user;
+    }
 }
