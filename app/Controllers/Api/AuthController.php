@@ -10,9 +10,15 @@ use App\Services\Token\TokenStoreService;
 
 class AuthController extends BaseController
 {
+    public function me()
+    {
+        $this->sendOutput(auth()->toArray());
+    }
+
+
     public function login()
     {
-        $data = $this->post();
+        $data = request()->get('body');
 
         new Validator([
             'email'    => ['required', 'email'],

@@ -8,3 +8,4 @@ Route::get('/user/:id', 'Controllers/Api/UserController@show', true);
 Route::put('/user/:id', 'Controllers/Api/UserController@update');
 Route::delete('/user/:id', 'Controllers/Api/UserController@destroy');
 Route::post('/auth/login', 'Controllers/Api/AuthController@login');
+Route::get('/auth/me', 'Controllers/Api/AuthController@me', true);

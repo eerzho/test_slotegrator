@@ -18,31 +18,4 @@ class BaseController
             'message' => 'Not fount'
         ], 404);
     }
-
-    /**
-     * @return array
-     */
-    public function post()
-    {
-        $data = file_get_contents('php://input');
-
-        if (strlen($data) == 0) {
-            return [];
-        }
-
-        return json_decode($data, true);
-    }
-
-    /**
-     * @return array
-     */
-    public function get()
-    {
-        $query = [];
-        if (isset($_SERVER['QUERY_STRING'])) {
-            parse_str($_SERVER['QUERY_STRING'], $query);
-        }
-
-        return $query;
-    }
 }

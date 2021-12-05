@@ -13,7 +13,7 @@ class UserController extends BaseController
 {
     public function index()
     {
-        $data = new Dto($this->get());
+        $data = new Dto(request()->get('query', []));
 
         $builder = (new UserSearch($data))->getQuery();
 
@@ -22,7 +22,7 @@ class UserController extends BaseController
 
     public function store()
     {
-        $data = $this->post();
+        $data = request()->get('body');
 
         new Validator([
             'first_name' => ['required', 'str', 'min:3', 'max:255'],
@@ -55,7 +55,7 @@ class UserController extends BaseController
      */
     public function update(array $attributes)
     {
-        $data = $this->post();
+        $data = request()->get('body');
 
         new Validator([
             'first_name' => ['required', 'str', 'min:3', 'max:255'],
