@@ -26,6 +26,10 @@ class BaseController
     {
         $data = file_get_contents('php://input');
 
+        if (strlen($data) == 0) {
+            return [];
+        }
+
         return json_decode($data, true);
     }
 

@@ -11,6 +11,7 @@ class App
     use OutputTrait;
 
     private array $routes;
+    private array $attributes = [];
 
     /**
      * @return void
@@ -77,7 +78,7 @@ class App
             if ($this->compareUrl($route['url'], $url)) {
                 try {
                     $controllerObject = new $route['controller']();
-                    $controllerObject->{$route['method']}();
+                    $controllerObject->{$route['method']}($this->attributes);
                 } catch (\Exception $exception) {
                     $this->sendOutput([
                         'message' => $exception->getMessage()
@@ -103,6 +104,25 @@ class App
             return true;
         }
 
-        return false;
+        $urlExploded = explode('/', $url);
+        $urlRequestExploded = explode('/', $requestUrl);
+
+        if (count($urlExploded) != count($urlRequestExploded)) {
+            return false;
+        }
+
+        $res = true;
+        foreach ($urlRequestExploded as $key => $segment) {
+            if ($urlExploded[$key] != $segment) {
+                if (str_starts_with($urlExploded[$key], ':')) {
+                    $attributeName = explode(':', $urlExploded[$key]);
+                    $this->attributes[$attributeName[1]] = $segment;
+                } else {
+                    $res = false;
+                }
+            }
+        }
+
+        return $res;
     }
 }
