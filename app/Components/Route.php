@@ -25,7 +25,7 @@ class Route
      */
     public static function post(string $url, string $controller)
     {
-        self::$methodPost = self::transformController($url, $controller);
+        self::$methodPost[] = self::transformController($url, $controller);
     }
 
     /**
@@ -34,7 +34,7 @@ class Route
      */
     public static function put(string $url, string $controller)
     {
-        self::$methodPut = self::transformController($url, $controller);
+        self::$methodPut[] = self::transformController($url, $controller);
     }
 
     /**
@@ -43,7 +43,7 @@ class Route
      */
     public static function patch(string $url, string $controller)
     {
-        self::$methodPatch = self::transformController($url, $controller);
+        self::$methodPatch[] = self::transformController($url, $controller);
     }
 
     /**
@@ -52,7 +52,7 @@ class Route
      */
     public static function delete(string $url, string $controller)
     {
-        self::$methodDelete = self::transformController($url, $controller);
+        self::$methodDelete[] = self::transformController($url, $controller);
     }
 
     /**

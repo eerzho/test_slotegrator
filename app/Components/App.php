@@ -4,6 +4,7 @@ namespace App\Components;
 
 use App\Consts\Messages\ErrorMessage;
 use App\Traits\OutputTrait;
+use Illuminate\Database\Capsule\Manager;
 
 class App
 {
@@ -12,12 +13,28 @@ class App
     private array $routes;
 
     /**
-     * @param string $method
-     * @param string $url
+     * @return void
      */
-    public function run(string $method, string $url)
+    public function run()
     {
-        $this->routes = match (strtoupper($method)) {
+        $this->runORM();
+        $this->runController();
+    }
+
+    /**
+     * @return void
+     */
+    public function runInConsole()
+    {
+        $this->runORM();
+    }
+
+    /**
+     * @return void
+     */
+    protected function runController()
+    {
+        $this->routes = match (strtoupper($_SERVER['REQUEST_METHOD'])) {
             "GET" => Route::getGetRoutes(),
             "POST" => Route::getPostRoutes(),
             "PUT" => Route::getPutRoutes(),
@@ -26,18 +43,46 @@ class App
             default => [],
         };
 
-        $this->sendRequest($url);
+        $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+        $this->findController($url);
+    }
+
+    /**
+     * @return void
+     */
+    protected function runORM()
+    {
+        $capsule = new Manager();
+
+        $capsule->addConnection([
+            'driver'   => 'mysql',
+            'host'     => DB_HOST,
+            'database' => DB_DATABASE_NAME,
+            'username' => DB_USERNAME,
+            'password' => DB_PASSWORD,
+        ]);
+
+        $capsule->setAsGlobal();
+
+        $capsule->bootEloquent();
     }
 
     /**
      * @param $url
      */
-    public function sendRequest($url)
+    protected function findController($url)
     {
         foreach ($this->routes as $route) {
             if ($this->compareUrl($route['url'], $url)) {
-                $controllerObject = new $route['controller']();
-                $controllerObject->{$route['method']}();
+                try {
+                    $controllerObject = new $route['controller']();
+                    $controllerObject->{$route['method']}();
+                } catch (\Exception $exception) {
+                    $this->sendOutput([
+                        'message' => $exception->getMessage()
+                    ], 500);
+                }
             }
         }
 
@@ -52,7 +97,7 @@ class App
      *
      * @return bool
      */
-    public function compareUrl(string $url, string $requestUrl): bool
+    protected function compareUrl(string $url, string $requestUrl): bool
     {
         if ($url == $requestUrl) {
             return true;

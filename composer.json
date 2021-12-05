@@ -10,7 +10,8 @@
     "require": {
         "php": ">=7.4",
         "ext-json": "*",
-        "ext-pdo": "*"
+        "ext-pdo": "*",
+        "illuminate/database": "^8.74"
     },
     "require-dev": {
         "larapack/dd": "^1.1"

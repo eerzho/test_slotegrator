@@ -8,8 +8,10 @@ trait OutputTrait
      * @param array $data
      * @param int   $statusCode
      * @param array $httpHeaders
+     *
+     * @return void
      */
-    protected function sendOutput(array $data, int $statusCode = 200, array $httpHeaders = [])
+    protected function sendOutput($data, int $statusCode = 200, array $httpHeaders = [])
     {
         $result = ['data' => $data];
         header_remove('Set-Cookie');
