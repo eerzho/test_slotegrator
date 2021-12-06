@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Controllers\Api;
+namespace App\Controllers\BaseController;
 
+use App\Consts\Messages\ErrorMessage;
 use App\Traits\OutputTrait;
 
 class BaseController
@@ -14,8 +15,6 @@ class BaseController
      */
     public function __call(string $name, array $arguments)
     {
-        $this->sendOutput([
-            'message' => 'Not fount'
-        ], 404);
+        self::sendError(ErrorMessage::NOT_FOUND, 404);
     }
 }

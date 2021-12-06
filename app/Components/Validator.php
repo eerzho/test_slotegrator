@@ -3,9 +3,12 @@
 namespace App\Components;
 
 use App\Consts\Messages\ErrorMessage;
+use App\Traits\OutputTrait;
 
 class Validator
 {
+    use OutputTrait;
+
     /**
      * @param       $rules
      * @param array $data
@@ -162,12 +165,13 @@ class Validator
             $message = str_replace(':count', $count, $message);
         }
 
-        $result = ['data' => ['message' => $message]];
-        header_remove('Set-Cookie');
-        header('Content-Type: application/json');
-        header('HTTP/1.1 400');
-
-        echo json_encode($result);
-        exit();
+        self::sendError($message, 400);
+//        $result = ['data' => ['message' => $message]];
+//        header_remove('Set-Cookie');
+//        header('Content-Type: application/json');
+//        header('HTTP/1.1 400');
+//
+//        echo json_encode($result);
+//        exit();
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Searches\User\Filters;
+namespace App\Searches\Product\Filters;
 
 use App\Interfaces\Filter\FilterInterface;
 use Illuminate\Database\Eloquent\Builder;
 
-class FirstName implements FilterInterface
+class Count implements FilterInterface
 {
     /**
      * @param Builder $builder
@@ -15,6 +15,6 @@ class FirstName implements FilterInterface
      */
     public static function apply(Builder $builder, $value): Builder
     {
-        return $builder->where('first_name', 'LIKE', '%' . $value . '%');
+        return $builder->where('count', $value);
     }
 }

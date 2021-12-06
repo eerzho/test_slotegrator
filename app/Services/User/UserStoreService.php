@@ -25,8 +25,7 @@ class UserStoreService
      */
     public function run()
     {
-        $this->user->first_name = $this->data->get('first_name');
-        $this->user->last_name = $this->data->get('last_name');
+        $this->user->name = $this->data->get('name');
         $this->user->email = $this->data->get('email');
         $this->user->password = password_hash($this->data->get('password'), PASSWORD_BCRYPT);
 

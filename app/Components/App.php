@@ -85,16 +85,12 @@ class App
                     $controllerObject = new $route['controller']();
                     $controllerObject->{$route['method']}($this->attributes);
                 } catch (\Exception $exception) {
-                    $this->sendOutput([
-                        'message' => $exception->getMessage()
-                    ], 500);
+                    self::sendError($exception->getMessage(), 500);
                 }
             }
         }
 
-        $this->sendOutput([
-            'message' => ErrorMessage::NOT_FOUND
-        ], 404);
+        self::sendError(ErrorMessage::NOT_FOUND, 404);
     }
 
     /**
@@ -103,9 +99,7 @@ class App
     private function authentication()
     {
         if (!array_key_exists('HTTP_AUTHORIZATION', $_SERVER)) {
-            $this->sendOutput([
-                'message' => ErrorMessage::UNAUTHORIZED
-            ], 401);
+            self::sendError(ErrorMessage::UNAUTHORIZED, 401);
         }
 
         $bearerToken = $_SERVER['HTTP_AUTHORIZATION'];
@@ -116,9 +110,7 @@ class App
         });
 
         if (is_null($user)) {
-            $this->sendOutput([
-                'message' => ErrorMessage::INVALID_TOKEN
-            ], 403);
+            self::sendError(ErrorMessage::INVALID_TOKEN, 403);
         }
 
         setAuth($user);

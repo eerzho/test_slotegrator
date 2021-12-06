@@ -5,7 +5,7 @@ namespace App\Searches\User\Filters;
 use App\Interfaces\Filter\FilterInterface;
 use Illuminate\Database\Eloquent\Builder;
 
-class LastName implements FilterInterface
+class Name implements FilterInterface
 {
     /**
      * @param Builder $builder
@@ -15,6 +15,6 @@ class LastName implements FilterInterface
      */
     public static function apply(Builder $builder, $value): Builder
     {
-        return $builder->where('last_name', 'LIKE', '%' . $value . '%');
+        return $builder->where('name', 'LIKE', '%' . $value . '%');
     }
 }

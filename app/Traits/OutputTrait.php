@@ -11,7 +11,7 @@ trait OutputTrait
      *
      * @return void
      */
-    protected static function sendOutput($data, int $statusCode = 200, array $httpHeaders = [])
+    protected static function sendOutput(array $data, int $statusCode = 200, array $httpHeaders = [])
     {
         $result = ['data' => $data];
         header_remove('Set-Cookie');
@@ -24,5 +24,14 @@ trait OutputTrait
 
         echo json_encode($result);
         exit();
+    }
+
+    /**
+     * @param string $message
+     * @param int    $statusCode
+     */
+    public static function sendError(string $message, int $statusCode)
+    {
+        self::sendOutput(['message' => $message], $statusCode);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Controllers\Api;
 use App\Components\Dto;
 use App\Components\Validator;
 use App\Consts\Messages\ErrorMessage;
+use App\Controllers\BaseController\BaseController;
 use App\Models\User;
 use App\Searches\User\UserSearch;
 use App\Services\User\UserStoreService;
@@ -13,11 +14,9 @@ class UserController extends BaseController
 {
     public function index()
     {
-        $data = new Dto(request()->get('query', []));
+        $builder = (new UserSearch(new Dto(request()->get('query'))))->getQuery();
 
-        $builder = (new UserSearch($data))->getQuery();
-
-        $this->sendOutput($builder->get());
+        self::sendOutput($builder->get()->toArray());
     }
 
     public function store()
@@ -25,21 +24,18 @@ class UserController extends BaseController
         $data = request()->get('body');
 
         new Validator([
-            'first_name' => ['required', 'str', 'min:3', 'max:255'],
-            'last_name'  => ['required', 'str', 'min:3', 'max:255'],
-            'email'      => ['required', 'email'],
-            'password'   => ['required', 'str', 'min:8', 'max:255']
+            'name'     => ['required', 'str', 'min:3', 'max:255'],
+            'email'    => ['required', 'email'],
+            'password' => ['required', 'str', 'min:8', 'max:255']
         ], $data);
 
         $user = new User();
         $isSave = (new UserStoreService($user, new Dto($data)))->run();
 
         if ($isSave) {
-            $this->sendOutput($user->refresh()->toArray());
+            self::sendOutput($user->refresh()->toArray());
         } else {
-            $this->sendOutput([
-                'message' => ErrorMessage::CREATE
-            ], 400);
+            self::sendError(ErrorMessage::CREATE, 400);
         }
     }
 
@@ -47,7 +43,7 @@ class UserController extends BaseController
     {
         $user = User::findOne($attributes['id']);
 
-        $this->sendOutput($user->toArray());
+        self::sendOutput($user->toArray());
     }
 
     /**
@@ -58,10 +54,9 @@ class UserController extends BaseController
         $data = request()->get('body');
 
         new Validator([
-            'first_name' => ['required', 'str', 'min:3', 'max:255'],
-            'last_name'  => ['required', 'str', 'min:3', 'max:255'],
-            'email'      => ['required', 'email'],
-            'password'   => ['required', 'str', 'min:8', 'max:255']
+            'name'     => ['required', 'str', 'min:3', 'max:255'],
+            'email'    => ['required', 'email'],
+            'password' => ['required', 'str', 'min:8', 'max:255']
         ], $data);
 
         $user = User::findOne($attributes['id']);
@@ -69,11 +64,9 @@ class UserController extends BaseController
         $isSave = (new UserStoreService($user, new Dto($data)))->run();
 
         if ($isSave) {
-            $this->sendOutput($user->refresh()->toArray());
+            self::sendOutput($user->refresh()->toArray());
         } else {
-            $this->sendOutput([
-                'message' => ErrorMessage::CREATE
-            ], 400);
+            self::sendError(ErrorMessage::UPDATE, 400);
         }
     }
 
@@ -84,8 +77,10 @@ class UserController extends BaseController
     {
         $user = User::findOne($attributes['id']);
 
-        $user->delete();
-
-        $this->sendOutput([]);
+        if ($user->delete()) {
+            self::sendOutput([]);
+        } else {
+            self::sendError(ErrorMessage::DELETE, 400);
+        }
     }
 }

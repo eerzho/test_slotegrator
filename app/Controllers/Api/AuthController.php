@@ -4,6 +4,7 @@ namespace App\Controllers\Api;
 
 use App\Components\Validator;
 use App\Consts\Messages\ErrorMessage;
+use App\Controllers\BaseController\BaseController;
 use App\Models\Token;
 use App\Models\User;
 use App\Services\Token\TokenStoreService;
@@ -14,7 +15,6 @@ class AuthController extends BaseController
     {
         $this->sendOutput(auth()->toArray());
     }
-
 
     public function login()
     {
@@ -29,25 +29,19 @@ class AuthController extends BaseController
         $user = User::query()->where('email', $data['email'])->first();
 
         if (is_null($user)) {
-            $this->sendOutput([
-                'message' => ErrorMessage::EMAIL
-            ], 400);
+            self::sendError(ErrorMessage::EMAIL, 400);
         } else {
             if (password_verify($data['password'], $user->password)) {
                 $service = new TokenStoreService($user, new Token());
                 if ($service->run()) {
-                    $this->sendOutput([
+                    self::sendOutput([
                         'token' => $service->getSecondPartToken()
                     ]);
                 } else {
-                    $this->sendOutput([
-                        'message' => ErrorMessage::CREATE
-                    ], 400);
+                    self::sendError(ErrorMessage::CREATE, 400);
                 }
             } else {
-                $this->sendOutput([
-                    'message' => ErrorMessage::PASSWORD
-                ], 400);
+                self::sendError(ErrorMessage::PASSWORD, 400);
             }
         }
     }

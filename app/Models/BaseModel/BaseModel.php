@@ -31,9 +31,7 @@ class BaseModel extends Model
         $user = static::query()->where('id', $id)->first();
 
         if (is_null($user)) {
-            self::sendOutput([
-                'message' => ErrorMessage::NOT_FOUND
-            ], 404);
+            self::sendError(ErrorMessage::NOT_FOUND, 404);
         }
 
         return $user;
