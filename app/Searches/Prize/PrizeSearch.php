@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Searches\User;
+namespace App\Searches\Prize;
 
-use App\Models\User;
+use App\Models\Prize;
 use App\Searches\BaseSearch\BaseSearch;
 
-class UserSearch extends BaseSearch
+class PrizeSearch extends BaseSearch
 {
     /**
      * @return string
@@ -20,7 +20,7 @@ class UserSearch extends BaseSearch
      */
     protected function getModel(): string
     {
-        return User::class;
+        return Prize::class;
     }
 
     /**
@@ -31,8 +31,6 @@ class UserSearch extends BaseSearch
         return [
             'id',
             '-id',
-            'created_at',
-            '-created_at',
         ];
     }
 }

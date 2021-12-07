@@ -32,7 +32,7 @@ class ProductController extends BaseController
         $isSave = (new ProductStoreService($product, new Dto($data)))->run();
 
         if ($isSave) {
-            self::sendOutput($product->toArray());
+            self::sendOutput($product->refresh()->toArray());
         } else {
             self::sendError(ErrorMessage::CREATE, 400);
         }
@@ -43,5 +43,24 @@ class ProductController extends BaseController
         $product = Product::findOne($attributes['id']);
 
         self::sendOutput($product->toArray());
+    }
+
+    public function update(array $attributes)
+    {
+        $data = request()->get('body');
+
+        new Validator([
+            'name'        => ['required', 'str', 'min:3', 'max:255'],
+            'description' => ['required', 'str', 'min:3', 'max:255'],
+            'count'       => ['required', 'int', 'min:2', 'max:200'],
+        ], $data);
+
+        $product = Product::findOne($attributes['id']);
+        $isSave = (new ProductStoreService($product, new Dto($data)))->run();
+        if ($isSave) {
+            self::sendOutput($product->refresh()->toArray());
+        } else {
+            self::sendError(ErrorMessage::CREATE, 400);
+        }
     }
 }

@@ -151,27 +151,32 @@ class Validator
     }
 
     /**
+     * @param array  $array
+     * @param string $field
+     * @param        $value
+     */
+    public static function inArray(array $array, string $field, $value)
+    {
+        if (!in_array($value, $array)) {
+            self::throwError(ErrorMessage::VALIDATION_ARRAY, $field, implode(', ', $array));
+        }
+    }
+
+    /**
      * @param string      $message
      * @param string|null $field
-     * @param string|null $count
+     * @param string|null $example
      */
-    public static function throwError(string $message, string $field = null, string $count = null)
+    public static function throwError(string $message, string $field = null, string $example = null)
     {
         if (!is_null($field)) {
             $message = str_replace(':field', $field, $message);
         }
 
-        if (!is_null($count)) {
-            $message = str_replace(':count', $count, $message);
+        if (!is_null($example)) {
+            $message = str_replace(':example', $example, $message);
         }
 
         self::sendError($message, 400);
-//        $result = ['data' => ['message' => $message]];
-//        header_remove('Set-Cookie');
-//        header('Content-Type: application/json');
-//        header('HTTP/1.1 400');
-//
-//        echo json_encode($result);
-//        exit();
     }
 }
