@@ -156,6 +156,11 @@ ___
 **NAME:** `php send-bonus.php` <br/>
 **DESCRIPTION:** _Accrues bonuses to users_ <br/>
 
+**NAME:** `php drop-migrations.php` <br/>
+**DESCRIPTION:** _Drop all tables from db_ <br/>
+
+**NAME:** `./vendor/bin/phpunit` <br/>
+**DESCRIPTION:** _Runs all test_ <br/>
 ___
 # Additionally:
 Project in Insomnia: [insomnia_project.json](Insomnia_project.json) <br/>
