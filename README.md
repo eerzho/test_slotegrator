@@ -1,7 +1,6 @@
 # test_slotegrator
 
 Project deployment instructions:
-
 1) Clone the project.
 2) Copy the file "env.example.php" to the root of the project and name it "env.php".
 3) Run the command "composer install".
@@ -9,8 +8,8 @@ Project deployment instructions:
 5) Run the command "php run-migrations.php"
 6) Run the command "php run-seeders.php"
 ___
-# Routes:
 
+# Routes:
 <h3>Users management:</h3>
 **POST:** `/user` <br/>
 **AUTH:** `false` <br/>
@@ -20,6 +19,7 @@ ___
 &nbsp;&nbsp;email: 'required', 'email', <br/>
 &nbsp;&nbsp;password: 'required', 'str', 'min:8', 'max:255' <br/>
 } <br/>
+<br/>
 ___
 **POST:** `/auth/login` <br/>
 **AUTH:** `false` <br/>
@@ -28,10 +28,12 @@ ___
 &nbsp;&nbsp;email: 'required', 'email', <br/>
 &nbsp;&nbsp;password: 'required', 'str', 'min:8', 'max:255' <br/>
 } <br/>
+<br/>
 ___
 **GET:** `/auth/me` <br/>
 **AUTH:** `true` <br/>
 **DESCRIPTION:** _Get auth user_ <br/>
+<br/>
 ___
 **GET:** `/user` <br/>
 **AUTH:** `true` <br/>
@@ -40,10 +42,12 @@ ___
 &nbsp;&nbsp; sort: `id, -id, created_at, -created_at` <br/>
 &nbsp;&nbsp; search: `[id, email, name]`<br/>
 } <br/>
+<br/>
 ___
 **GET:** `/user/:id` <br/>
 **AUTH:** `true` <br/>
 **DESCRIPTION:** _Get one user_ <br/>
+<br/>
 ___
 **PUT:** `/user/:id` <br/>
 **AUTH:** `true` <br/>
@@ -53,10 +57,12 @@ ___
 &nbsp;&nbsp;email: 'required', 'email', <br/>
 &nbsp;&nbsp;password: 'required', 'str', 'min:8', 'max:255' <br/>
 } <br/>
+<br/>
 ___
 **DELETE:** `/user/:id` <br/>
 **AUTH:** `true` <br/>
 **DESCRIPTION:** _Delete user_ <br/>
+<br/>
 ___
 <h3>Products management (физический предмет):</h3>
 **GET:** `/product` <br/>
@@ -66,6 +72,7 @@ ___
 &nbsp;&nbsp; sort: `id, -id, count, -count` <br/>
 &nbsp;&nbsp; search: `[id, name, count]`<br/>
 } <br/>
+<br/>
 ___
 **POST:** `/product` <br/>
 **AUTH:** `true` <br/>
@@ -75,10 +82,12 @@ ___
 &nbsp;&nbsp;description: 'required', 'str', 'min:3', 'max:255', <br/>
 &nbsp;&nbsp;count: 'required', 'int', 'min:2', 'max:200' <br/>
 } <br/>
+<br/>
 ___
 **GET:** `/product/:id` <br/>
 **AUTH:** `true` <br/>
 **DESCRIPTION:** _Get one product_ <br/>
+<br/>
 ___
 **PUT:** `/product/:id` <br/>
 **AUTH:** `true` <br/>
@@ -88,6 +97,7 @@ ___
 &nbsp;&nbsp;description: 'required', 'str', 'min:3', 'max:255', <br/>
 &nbsp;&nbsp;count: 'required', 'int', 'min:2', 'max:200' <br/>
 } <br/>
+<br/>
 ___
 <h3>Monetary management (случайная сумма в интервале):</h3>
 **GET:** `/monetary` <br/>
@@ -97,6 +107,7 @@ ___
 &nbsp;&nbsp; sort: `id, -id, type, -type` <br/>
 &nbsp;&nbsp; search: `[id, type]`<br/>
 } <br/>
+<br/>
 ___
 **POST:** `/monetary` <br/>
 **AUTH:** `true` <br/>
@@ -107,10 +118,12 @@ ___
 &nbsp;&nbsp; interval_from: 'required', 'int', 'min:1', 'max:interval_to' <br/>
 &nbsp;&nbsp; interval_to: 'required', 'int', 'min:interval_from', 'max:max_sum' <br/>
 } <br/>
+<br/>
 ___
 **GET:** `/monetary/:id` <br/>
 **AUTH:** `true` <br/>
 **DESCRIPTION:** _Get one monetary_ <br/>
+<br/>
 ___
 **PUT:** `/monetary/:id` <br/>
 **AUTH:** `true` <br/>
@@ -120,6 +133,7 @@ ___
 &nbsp;&nbsp; interval_from: 'required', 'int', 'min:1', 'max:interval_to' <br/>
 &nbsp;&nbsp; interval_to: 'required', 'int', 'min:interval_from', 'max:max_sum' <br/>
 } <br/>
+<br/>
 ___
 <h3>Prize (Призы):</h3>
 **GET:** `/prize` <br/>
@@ -129,36 +143,44 @@ ___
 &nbsp;&nbsp; sort: `id, -id` <br/>
 &nbsp;&nbsp; search: `[target_id, type, user_id]`<br/>
 } <br/>
+<br/>
 ___
 **POST:** `/prize` <br/>
 **AUTH:** `true` <br/>
 **DESCRIPTION:** _To receive a prize_ <br/>
+<br/>
 ___
 **GET:** `/prize/:id` <br/>
 **AUTH:** `true` <br/>
 **DESCRIPTION:** _Get one prize_ <br/>
+<br/>
 ___
 **DELETE:** `/prize/:id` <br/>
 **AUTH:** `true` <br/>
 **DESCRIPTION:** _Waiver of a prize_ <br/>
+<br/>
 ___
 **POST:** `/prize/:id/convert` <br/>
 **AUTH:** `true` <br/>
 **DESCRIPTION:** _Real money convert to bonus_ <br/>
+<br/>
 ___
-# Commands:
 
+# Commands:
 **NAME:** `php run-migrations.php` <br/>
 **DESCRIPTION:** _Runs all migrations from database/migrations directories_ <br/>
+<br/>
 ___
 **NAME:** `php run-seeders.php` <br/>
 **DESCRIPTION:** _Runs all seeders from database/seeders directories_ <br/>
+<br/>
 ___
 **NAME:** `php send-bonus.php` <br/>
 **DESCRIPTION:** _Accrues bonuses to users_ <br/>
+<br/>
 ___
-# Additionally:
 
+# Additionally:
 Project in Insomnia: [insomnia_project.json](Insomnia_project.json) <br/>
 Request example: <br/>
 ![img.png](img.png)
