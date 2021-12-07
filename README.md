@@ -19,7 +19,7 @@ ___
 &nbsp;&nbsp;name: 'required', 'str', 'min:3', 'max:255', <br/>
 &nbsp;&nbsp;email: 'required', 'email', <br/>
 &nbsp;&nbsp;password: 'required', 'str', 'min:8', 'max:255' <br/>
-}
+} <br/>
 ___
 **POST:** `/auth/login` <br/>
 **AUTH:** `false` <br/>
@@ -27,7 +27,7 @@ ___
 **BODY**: { <br/>
 &nbsp;&nbsp;email: 'required', 'email', <br/>
 &nbsp;&nbsp;password: 'required', 'str', 'min:8', 'max:255' <br/>
-}
+} <br/>
 ___
 **GET:** `/auth/me` <br/>
 **AUTH:** `true` <br/>
@@ -39,7 +39,7 @@ ___
 **QUERY**: { <br/>
 &nbsp;&nbsp; sort: `id, -id, created_at, -created_at` <br/>
 &nbsp;&nbsp; search: `[id, email, name]`<br/>
-}
+} <br/>
 ___
 **GET:** `/user/:id` <br/>
 **AUTH:** `true` <br/>
@@ -52,7 +52,7 @@ ___
 &nbsp;&nbsp;name: 'required', 'str', 'min:3', 'max:255', <br/>
 &nbsp;&nbsp;email: 'required', 'email', <br/>
 &nbsp;&nbsp;password: 'required', 'str', 'min:8', 'max:255' <br/>
-}
+} <br/>
 ___
 **DELETE:** `/user/:id` <br/>
 **AUTH:** `true` <br/>
@@ -65,7 +65,7 @@ ___
 **QUERY**: { <br/>
 &nbsp;&nbsp; sort: `id, -id, count, -count` <br/>
 &nbsp;&nbsp; search: `[id, name, count]`<br/>
-}
+} <br/>
 ___
 **POST:** `/product` <br/>
 **AUTH:** `true` <br/>
@@ -74,7 +74,7 @@ ___
 &nbsp;&nbsp;name: 'required', 'str', 'min:3', 'max:255', <br/>
 &nbsp;&nbsp;description: 'required', 'str', 'min:3', 'max:255', <br/>
 &nbsp;&nbsp;count: 'required', 'int', 'min:2', 'max:200' <br/>
-}
+} <br/>
 ___
 **GET:** `/product/:id` <br/>
 **AUTH:** `true` <br/>
@@ -87,7 +87,7 @@ ___
 &nbsp;&nbsp;name: 'required', 'str', 'min:3', 'max:255', <br/>
 &nbsp;&nbsp;description: 'required', 'str', 'min:3', 'max:255', <br/>
 &nbsp;&nbsp;count: 'required', 'int', 'min:2', 'max:200' <br/>
-}
+} <br/>
 ___
 <h3>Monetary management (случайная сумма в интервале):</h3>
 **GET:** `/monetary` <br/>
@@ -96,7 +96,7 @@ ___
 **QUERY**: { <br/>
 &nbsp;&nbsp; sort: `id, -id, type, -type` <br/>
 &nbsp;&nbsp; search: `[id, type]`<br/>
-}
+} <br/>
 ___
 **POST:** `/monetary` <br/>
 **AUTH:** `true` <br/>
@@ -106,7 +106,7 @@ ___
 &nbsp;&nbsp; max_sum: 'int', 'min:1' <br/>
 &nbsp;&nbsp; interval_from: 'required', 'int', 'min:1', 'max:interval_to' <br/>
 &nbsp;&nbsp; interval_to: 'required', 'int', 'min:interval_from', 'max:max_sum' <br/>
-}
+} <br/>
 ___
 **GET:** `/monetary/:id` <br/>
 **AUTH:** `true` <br/>
@@ -119,7 +119,7 @@ ___
 &nbsp;&nbsp; max_sum: 'int', 'min:1' <br/>
 &nbsp;&nbsp; interval_from: 'required', 'int', 'min:1', 'max:interval_to' <br/>
 &nbsp;&nbsp; interval_to: 'required', 'int', 'min:interval_from', 'max:max_sum' <br/>
-}
+} <br/>
 ___
 <h3>Prize (Призы):</h3>
 **GET:** `/prize` <br/>
@@ -128,7 +128,7 @@ ___
 **QUERY**: { <br/>
 &nbsp;&nbsp; sort: `id, -id` <br/>
 &nbsp;&nbsp; search: `[target_id, type, user_id]`<br/>
-}
+} <br/>
 ___
 **POST:** `/prize` <br/>
 **AUTH:** `true` <br/>
