@@ -20,4 +20,7 @@ class ErrorMessage
     const EMAIL              = 'Не правильный email';
     const UNAUTHORIZED       = 'Нужно авторизоваться';
     const INVALID_TOKEN      = 'Не действительный токен';
+    const PRIZE_CONVERT      = 'Нельзя конвертировать приз';
+    const MONETARY_TYPE      = 'Не правильный тип';
+    const PRIZE_RECEIVE      = 'Приз получен';
 }

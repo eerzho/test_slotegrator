@@ -30,19 +30,19 @@ class AuthController extends BaseController
 
         if (is_null($user)) {
             self::sendError(ErrorMessage::EMAIL, 400);
-        } else {
-            if (password_verify($data['password'], $user->password)) {
-                $service = new TokenStoreService($user, new Token());
-                if ($service->run()) {
-                    self::sendOutput([
-                        'token' => $service->getSecondPartToken()
-                    ]);
-                } else {
-                    self::sendError(ErrorMessage::CREATE, 400);
-                }
-            } else {
-                self::sendError(ErrorMessage::PASSWORD, 400);
-            }
         }
+
+        if (password_verify($data['password'], $user->password)) {
+
+            $service = new TokenStoreService($user, new Token());
+
+            if ($service->run()) {
+                self::sendOutput(['token' => $service->getSecondPartToken()]);
+            }
+
+            self::sendError(ErrorMessage::CREATE, 400);
+        }
+
+        self::sendError(ErrorMessage::PASSWORD, 400);
     }
 }

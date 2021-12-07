@@ -34,9 +34,9 @@ class UserController extends BaseController
 
         if ($isSave) {
             self::sendOutput($user->refresh()->toArray());
-        } else {
-            self::sendError(ErrorMessage::CREATE, 400);
         }
+
+        self::sendError(ErrorMessage::CREATE, 400);
     }
 
     public function show(array $attributes)
@@ -65,9 +65,9 @@ class UserController extends BaseController
 
         if ($isSave) {
             self::sendOutput($user->refresh()->toArray());
-        } else {
-            self::sendError(ErrorMessage::UPDATE, 400);
         }
+
+        self::sendError(ErrorMessage::UPDATE, 400);
     }
 
     /**
@@ -79,8 +79,8 @@ class UserController extends BaseController
 
         if ($user->delete()) {
             self::sendOutput([]);
-        } else {
-            self::sendError(ErrorMessage::DELETE, 400);
         }
+
+        self::sendError(ErrorMessage::DELETE, 400);
     }
 }

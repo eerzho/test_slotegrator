@@ -33,9 +33,9 @@ class ProductController extends BaseController
 
         if ($isSave) {
             self::sendOutput($product->refresh()->toArray());
-        } else {
-            self::sendError(ErrorMessage::CREATE, 400);
         }
+
+        self::sendError(ErrorMessage::CREATE, 400);
     }
 
     public function show(array $attributes)
@@ -57,10 +57,11 @@ class ProductController extends BaseController
 
         $product = Product::findOne($attributes['id']);
         $isSave = (new ProductStoreService($product, new Dto($data)))->run();
+
         if ($isSave) {
             self::sendOutput($product->refresh()->toArray());
-        } else {
-            self::sendError(ErrorMessage::CREATE, 400);
         }
+
+        self::sendError(ErrorMessage::CREATE, 400);
     }
 }

@@ -44,9 +44,9 @@ class MonetaryController extends BaseController
 
         if ($isSave) {
             self::sendOutput($monetary->refresh()->toArray());
-        } else {
-            self::sendError(ErrorMessage::CREATE, 400);
         }
+
+        self::sendError(ErrorMessage::CREATE, 400);
     }
 
     public function show(array $attributes)
@@ -77,8 +77,8 @@ class MonetaryController extends BaseController
 
         if ($isSave) {
             self::sendOutput($monetary->refresh()->toArray());
-        } else {
-            self::sendError(ErrorMessage::UPDATE, 400);
         }
+
+        self::sendError(ErrorMessage::UPDATE, 400);
     }
 }

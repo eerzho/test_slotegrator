@@ -113,7 +113,7 @@ Project deployment instructions:
 **AUTH:** `true` <br/>
 **DESCRIPTION:** _Get one monetary_ <br/>
 
-**PUT:** `/monetary` <br/>
+**PUT:** `/monetary/:id` <br/>
 **AUTH:** `true` <br/>
 **DESCRIPTION:** _Update monetary_ <br/>
 **BODY**: { <br/>
@@ -121,3 +121,48 @@ Project deployment instructions:
 &nbsp;&nbsp; interval_from: 'required', 'int', 'min:1', 'max:interval_to' <br/>
 &nbsp;&nbsp; interval_to: 'required', 'int', 'min:interval_from', 'max:max_sum' <br/>
 }
+
+<h3>Prize (Призы):</h3>
+**GET:** `/prize` <br/>
+**AUTH:** `true` <br/>
+**DESCRIPTION:** _Get all prizes_ <br/>
+**QUERY**: { <br/>
+&nbsp;&nbsp; sort: `id, -id` <br/>
+&nbsp;&nbsp; search: `[target_id, type, user_id]`<br/>
+}
+
+**POST:** `/prize` <br/>
+**AUTH:** `true` <br/>
+**DESCRIPTION:** _To receive a prize_ <br/>
+
+**GET:** `/prize/:id` <br/>
+**AUTH:** `true` <br/>
+**DESCRIPTION:** _Get one prize_ <br/>
+
+**DELETE:** `/prize/:id` <br/>
+**AUTH:** `true` <br/>
+**DESCRIPTION:** _Waiver of a prize_ <br/>
+
+**POST:** `/prize/:id/convert` <br/>
+**AUTH:** `true` <br/>
+**DESCRIPTION:** _Real money convert to bonus_ <br/>
+
+# Commands:
+
+**NAME:** `php run-migrations.php` <br/>
+**DESCRIPTION:** _Runs all migrations from database/migrations directories_ <br/>
+
+**NAME:** `php run-seeders.php` <br/>
+**DESCRIPTION:** _Runs all seeders from database/seeders directories_ <br/>
+
+**NAME:** `php send-bonus.php` <br/>
+**DESCRIPTION:** _Accrues bonuses to users_ <br/>
+
+# Project in Insomnia:
+1) Download Insomnia
+2) Open insomnia_project.json from the root of the project
+
+# Request example:
+
+![img.png](img.png)
+

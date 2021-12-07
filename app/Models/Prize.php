@@ -11,6 +11,7 @@ use App\Models\BaseModel\BaseModel;
  * @property string           $target_class
  * @property int              $count
  * @property boolean          $is_received
+ * @property int              $type
  * @property User             $user
  * @property Monetary|Product $prizeable
  */
@@ -64,5 +65,16 @@ class Prize extends BaseModel
         $key = array_search($this->target_class, array_column($types, 'class'));
 
         return $types[$key]['value'];
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function getMonetary()
+    {
+        return self::query()
+            ->where('is_received', false)
+            ->where('target_class', PrizeTypes::MONETARY['class'])
+            ->with('prizeable');
     }
 }

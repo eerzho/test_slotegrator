@@ -24,3 +24,5 @@ Route::put('/monetary/:id', 'Controllers/Api/MonetaryController@update', true);
 Route::get('/prize', 'Controllers/Api/PrizeController@index', true);
 Route::post('/prize', 'Controllers/Api/PrizeController@store', true);
 Route::get('/prize/:id', 'Controllers/Api/PrizeController@show', true);
+Route::delete('/prize/:id', 'Controllers/Api/PrizeController@destroy', true);
+Route::post('/prize/:id/convert', 'Controllers/Api/PrizeController@convert', true);
