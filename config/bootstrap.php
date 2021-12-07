@@ -1,5 +1,6 @@
 <?php
 
+require 'vendor/autoload.php';
 require_once 'routes/routes.php';
 
 $configPath = __DIR__;

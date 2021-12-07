@@ -1,6 +1,5 @@
 <?php
 
-require 'vendor/autoload.php';
 require 'config/bootstrap.php';
 
 $app = new \App\Components\App();

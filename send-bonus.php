@@ -6,7 +6,6 @@ use App\Models\Prize;
 use App\Services\Prize\PrizeReceiveService;
 use App\Services\User\UserAddBonusService;
 
-require 'vendor/autoload.php';
 require 'config/bootstrap.php';
 
 $app = new App();
