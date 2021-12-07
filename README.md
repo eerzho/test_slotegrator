@@ -8,7 +8,7 @@ Project deployment instructions:
 4) Run the command "php -S localhost:8000"
 5) Run the command "php run-migrations.php"
 6) Run the command "php run-seeders.php"
-
+___
 # Routes:
 
 <h3>Users management:</h3>
@@ -20,7 +20,7 @@ Project deployment instructions:
 &nbsp;&nbsp;email: 'required', 'email', <br/>
 &nbsp;&nbsp;password: 'required', 'str', 'min:8', 'max:255' <br/>
 }
-
+___
 **POST:** `/auth/login` <br/>
 **AUTH:** `false` <br/>
 **DESCRIPTION:** _Login_ <br/>
@@ -28,11 +28,11 @@ Project deployment instructions:
 &nbsp;&nbsp;email: 'required', 'email', <br/>
 &nbsp;&nbsp;password: 'required', 'str', 'min:8', 'max:255' <br/>
 }
-
+___
 **GET:** `/auth/me` <br/>
 **AUTH:** `true` <br/>
 **DESCRIPTION:** _Get auth user_ <br/>
-
+___
 **GET:** `/user` <br/>
 **AUTH:** `true` <br/>
 **DESCRIPTION:** _Get all users_ <br/>
@@ -40,11 +40,11 @@ Project deployment instructions:
 &nbsp;&nbsp; sort: `id, -id, created_at, -created_at` <br/>
 &nbsp;&nbsp; search: `[id, email, name]`<br/>
 }
-
+___
 **GET:** `/user/:id` <br/>
 **AUTH:** `true` <br/>
 **DESCRIPTION:** _Get one user_ <br/>
-
+___
 **PUT:** `/user/:id` <br/>
 **AUTH:** `true` <br/>
 **DESCRIPTION:** _Update user_ <br/>
@@ -53,12 +53,11 @@ Project deployment instructions:
 &nbsp;&nbsp;email: 'required', 'email', <br/>
 &nbsp;&nbsp;password: 'required', 'str', 'min:8', 'max:255' <br/>
 }
-
+___
 **DELETE:** `/user/:id` <br/>
 **AUTH:** `true` <br/>
 **DESCRIPTION:** _Delete user_ <br/>
-
-
+___
 <h3>Products management (физический предмет):</h3>
 **GET:** `/product` <br/>
 **AUTH:** `true` <br/>
@@ -67,7 +66,7 @@ Project deployment instructions:
 &nbsp;&nbsp; sort: `id, -id, count, -count` <br/>
 &nbsp;&nbsp; search: `[id, name, count]`<br/>
 }
-
+___
 **POST:** `/product` <br/>
 **AUTH:** `true` <br/>
 **DESCRIPTION:** _Create new product_ <br/>
@@ -76,11 +75,11 @@ Project deployment instructions:
 &nbsp;&nbsp;description: 'required', 'str', 'min:3', 'max:255', <br/>
 &nbsp;&nbsp;count: 'required', 'int', 'min:2', 'max:200' <br/>
 }
-
+___
 **GET:** `/product/:id` <br/>
 **AUTH:** `true` <br/>
 **DESCRIPTION:** _Get one product_ <br/>
-
+___
 **PUT:** `/product/:id` <br/>
 **AUTH:** `true` <br/>
 **DESCRIPTION:** _Update product_ <br/>
@@ -89,7 +88,7 @@ Project deployment instructions:
 &nbsp;&nbsp;description: 'required', 'str', 'min:3', 'max:255', <br/>
 &nbsp;&nbsp;count: 'required', 'int', 'min:2', 'max:200' <br/>
 }
-
+___
 <h3>Monetary management (случайная сумма в интервале):</h3>
 **GET:** `/monetary` <br/>
 **AUTH:** `true` <br/>
@@ -98,7 +97,7 @@ Project deployment instructions:
 &nbsp;&nbsp; sort: `id, -id, type, -type` <br/>
 &nbsp;&nbsp; search: `[id, type]`<br/>
 }
-
+___
 **POST:** `/monetary` <br/>
 **AUTH:** `true` <br/>
 **DESCRIPTION:** _Create new monetary_ <br/>
@@ -108,11 +107,11 @@ Project deployment instructions:
 &nbsp;&nbsp; interval_from: 'required', 'int', 'min:1', 'max:interval_to' <br/>
 &nbsp;&nbsp; interval_to: 'required', 'int', 'min:interval_from', 'max:max_sum' <br/>
 }
-
+___
 **GET:** `/monetary/:id` <br/>
 **AUTH:** `true` <br/>
 **DESCRIPTION:** _Get one monetary_ <br/>
-
+___
 **PUT:** `/monetary/:id` <br/>
 **AUTH:** `true` <br/>
 **DESCRIPTION:** _Update monetary_ <br/>
@@ -121,7 +120,7 @@ Project deployment instructions:
 &nbsp;&nbsp; interval_from: 'required', 'int', 'min:1', 'max:interval_to' <br/>
 &nbsp;&nbsp; interval_to: 'required', 'int', 'min:interval_from', 'max:max_sum' <br/>
 }
-
+___
 <h3>Prize (Призы):</h3>
 **GET:** `/prize` <br/>
 **AUTH:** `true` <br/>
@@ -130,39 +129,37 @@ Project deployment instructions:
 &nbsp;&nbsp; sort: `id, -id` <br/>
 &nbsp;&nbsp; search: `[target_id, type, user_id]`<br/>
 }
-
+___
 **POST:** `/prize` <br/>
 **AUTH:** `true` <br/>
 **DESCRIPTION:** _To receive a prize_ <br/>
-
+___
 **GET:** `/prize/:id` <br/>
 **AUTH:** `true` <br/>
 **DESCRIPTION:** _Get one prize_ <br/>
-
+___
 **DELETE:** `/prize/:id` <br/>
 **AUTH:** `true` <br/>
 **DESCRIPTION:** _Waiver of a prize_ <br/>
-
+___
 **POST:** `/prize/:id/convert` <br/>
 **AUTH:** `true` <br/>
 **DESCRIPTION:** _Real money convert to bonus_ <br/>
-
+___
 # Commands:
 
 **NAME:** `php run-migrations.php` <br/>
 **DESCRIPTION:** _Runs all migrations from database/migrations directories_ <br/>
-
+___
 **NAME:** `php run-seeders.php` <br/>
 **DESCRIPTION:** _Runs all seeders from database/seeders directories_ <br/>
-
+___
 **NAME:** `php send-bonus.php` <br/>
 **DESCRIPTION:** _Accrues bonuses to users_ <br/>
+___
+# Additionally:
 
-# Project in Insomnia:
-1) Download Insomnia
-2) Open insomnia_project.json from the root of the project
-
-# Request example:
-
+Project in Insomnia: [insomnia_project.json](Insomnia_project.json) <br/>
+Request example: <br/>
 ![img.png](img.png)
 
