@@ -10,7 +10,8 @@ Project deployment instructions:
 ___
 
 # Routes:
-<h3>Users management:</h3>
+
+[comment]: <> (<h3>Users management:</h3>)
 **POST:** `/user` <br/>
 **AUTH:** `false` <br/>
 **DESCRIPTION:** _New user registration_ <br/>
