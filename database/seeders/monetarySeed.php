@@ -7,6 +7,6 @@ foreach ($types as $type) {
         'type'          => $type,
         'interval_from' => 5000,
         'interval_to'   => 20000,
-        'max_sum'       => 100000,
+        'max_sum'       => $type == \App\Consts\Monetary\MonetaryTypes::BONUS ? null : 100000,
     ]);
 }

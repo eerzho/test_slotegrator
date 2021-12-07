@@ -8,5 +8,6 @@ Manager::schema()->create('users', function (Blueprint $table) {
     $table->string('name');
     $table->string('email')->unique();
     $table->string('password');
+    $table->integer('bonus')->default(0);
     $table->timestamps();
 });

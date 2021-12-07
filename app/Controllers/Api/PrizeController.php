@@ -13,7 +13,9 @@ class PrizeController extends BaseController
 {
     public function index()
     {
-        $builder = (new PrizeSearch(new Dto(request()->get('query'))))->getQuery();
+        $builder = (new PrizeSearch(new Dto(request()->get('query'))))
+            ->getQuery()
+            ->with('prizeable');
 
         self::sendOutput($builder->get()->toArray());
     }

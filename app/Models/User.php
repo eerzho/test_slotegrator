@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
  * @property string     $name
  * @property string     $email
  * @property string     $password
+ * @property int        $bonus
  * @property Collection $tokens
  * @property Collection $prizes
  */
@@ -17,7 +18,8 @@ class User extends BaseModel
     protected $fillable = [
         'name',
         'email',
-        'password'
+        'password',
+        'bonus'
     ];
 
     protected $hidden = [

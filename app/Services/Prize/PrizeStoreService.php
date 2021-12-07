@@ -40,7 +40,10 @@ class PrizeStoreService
     private function saveProduct()
     {
         /** @var Product $product */
-        $product = Product::query()->where('count', '>', 0)->inRandomOrder()->first();
+        $product = Product::query()
+            ->where('count', '>', 0)
+            ->inRandomOrder()
+            ->first();
 
         $this->prize->target_id = $product->getKey();
         $this->prize->target_class = $product->getMorphClass();
@@ -55,18 +58,24 @@ class PrizeStoreService
      */
     private function saveMonetary()
     {
-        $types = MonetaryTypes::getArr();
-        $monetary = Monetary::getByType($types[array_rand($types)]);
+        /** @var Monetary $monetary */
+        $monetary = Monetary::query()
+            ->where('max_sum', '>', 0)
+            ->orWhereNull('max_sum')
+            ->inRandomOrder()
+            ->first();
 
         $this->prize->target_id = $monetary->getKey();
         $this->prize->target_class = $monetary->getMorphClass();
 
         $randCount = rand($monetary->interval_from, $monetary->interval_to);
 
-        $randCount = $randCount > $monetary->max_sum ? $monetary->max_sum : $randCount;
+        if (!is_null($monetary->max_sum)) {
+            $randCount = $randCount > $monetary->max_sum ? $monetary->max_sum : $randCount;
+            $monetary->max_sum -= $randCount;
+        }
 
         $this->prize->count = $randCount;
-        $monetary->max_sum -= $randCount;
 
         return $this->prize->save() && $monetary->save();
     }

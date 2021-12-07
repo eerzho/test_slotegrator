@@ -27,13 +27,15 @@ class MonetaryController extends BaseController
 
         new Validator([
             'type'          => ['required', 'int'],
-            'max_sum'       => ['required', 'int', 'min:1'],
+            'max_sum'       => ['int', 'min:1'],
             'interval_from' => ['required', 'int', 'min:1'],
             'interval_to'   => ['required', 'int'],
         ], $data);
 
         Validator::inArray(MonetaryTypes::getArr(), 'type', $data['type']);
-        Validator::max($data['interval_to'], 'interval_to', $data['max_sum']);
+        if (array_key_exists('max_sum', $data)) {
+            Validator::max($data['interval_to'], 'interval_to', $data['max_sum']);
+        }
         Validator::min($data['interval_to'], 'interval_to', $data['interval_from']);
         Validator::max($data['interval_from'], 'interval_from', $data['interval_to']);
 
@@ -59,12 +61,14 @@ class MonetaryController extends BaseController
         $data = request()->get('body');
 
         new Validator([
-            'max_sum'       => ['required', 'int', 'min:1'],
+            'max_sum'       => ['int', 'min:1'],
             'interval_from' => ['required', 'int', 'min:1'],
             'interval_to'   => ['required', 'int'],
         ], $data);
 
-        Validator::max($data['interval_to'], 'interval_to', $data['max_sum']);
+        if (array_key_exists('max_sum', $data)) {
+            Validator::max($data['interval_to'], 'interval_to', $data['max_sum']);
+        }
         Validator::min($data['interval_to'], 'interval_to', $data['interval_from']);
         Validator::max($data['interval_from'], 'interval_from', $data['interval_to']);
 

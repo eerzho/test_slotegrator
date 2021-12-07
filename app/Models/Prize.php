@@ -6,10 +6,13 @@ use App\Consts\Prize\PrizeTypes;
 use App\Models\BaseModel\BaseModel;
 
 /**
- * @property int    $user_id
- * @property int    $target_id
- * @property string $target_class
- * @property int    $count
+ * @property int              $user_id
+ * @property int              $target_id
+ * @property string           $target_class
+ * @property int              $count
+ * @property boolean          $is_received
+ * @property User             $user
+ * @property Monetary|Product $prizeable
  */
 class Prize extends BaseModel
 {
@@ -18,6 +21,7 @@ class Prize extends BaseModel
         'target_id',
         'target_class',
         'count',
+        'is_received',
     ];
 
     protected $hidden = [
@@ -26,9 +30,21 @@ class Prize extends BaseModel
         'target_class',
     ];
 
+    protected $casts = [
+        'is_received' => 'boolean',
+    ];
+
     protected $appends = [
         'type'
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo

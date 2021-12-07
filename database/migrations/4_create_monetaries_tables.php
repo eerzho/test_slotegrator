@@ -8,6 +8,6 @@ Manager::schema()->create('monetaries', function (Blueprint $table) {
     $table->integer('type')->unique();
     $table->integer('interval_from');
     $table->integer('interval_to');
-    $table->integer('max_sum');
+    $table->integer('max_sum')->nullable();
     $table->timestamps();
 });

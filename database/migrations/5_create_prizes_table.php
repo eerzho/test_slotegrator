@@ -10,5 +10,6 @@ Manager::schema()->create('prizes', function (Blueprint $table) {
     $table->string('target_class');
     $table->unsignedBigInteger('target_id');
     $table->integer('count')->default(1);
+    $table->boolean('is_received')->default(false);
     $table->timestamps();
 });

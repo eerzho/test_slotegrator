@@ -16,4 +16,4 @@ foreach ($files as $file) {
     }
 }
 
-echo "ALL DONE \n";
+echo "ALL DONE!\n";
